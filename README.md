@@ -154,6 +154,110 @@ Claude: [uses todo_add with title="Implement Login Feature",
 | `dev2` | Developer 2 | member |
 | `viewer1` | Viewer | viewer |
 
+## REST API (for any AI / HTTP client)
+
+The web server exposes a full REST API at `http://localhost:3456/api`. Any AI or tool that can make HTTP requests can use it.
+
+```bash
+npm run web   # Start the API server
+```
+
+### Authentication
+
+```bash
+# Login (required before creating/modifying data)
+curl -X POST http://localhost:3456/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"user_id": "admin1"}'
+
+# Get current user
+curl http://localhost:3456/api/current-user
+
+# Logout
+curl -X POST http://localhost:3456/api/logout
+```
+
+### Todos
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/todos` | List all todos |
+| `GET` | `/api/todos?project={id}` | Filter by project |
+| `GET` | `/api/todos?assignee={id}` | Filter by assignee |
+| `GET` | `/api/todos?status=pending` | Filter by status (`pending` / `completed`) |
+| `GET` | `/api/todos?priority=urgent` | Filter by priority (`urgent` / `high` / `medium` / `low`) |
+| `POST` | `/api/todos` | Create a todo |
+| `PUT` | `/api/todos/:id` | Update a todo |
+| `DELETE` | `/api/todos/:id` | Delete a todo |
+| `PATCH` | `/api/todos/:id/toggle` | Toggle complete/incomplete |
+| `PATCH` | `/api/todos/:id/assign` | Assign to a user |
+
+**Create a todo:**
+
+```bash
+curl -X POST http://localhost:3456/api/todos \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Implement login page",
+    "project_id": "proj2",
+    "assignee_id": "dev1",
+    "date": "2026-02-20",
+    "time": "17:00",
+    "priority": "high",
+    "importance": 4,
+    "note": "Use OAuth2 flow"
+  }'
+```
+
+**Update a todo:**
+
+```bash
+curl -X PUT http://localhost:3456/api/todos/{id} \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Updated title", "priority": "urgent"}'
+```
+
+### Projects
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/projects` | List all projects |
+| `POST` | `/api/projects` | Create a project |
+| `DELETE` | `/api/projects/:id` | Delete a project |
+
+```bash
+curl -X POST http://localhost:3456/api/projects \
+  -H "Content-Type: application/json" \
+  -d '{"name": "New Project", "color": "#8b5cf6"}'
+```
+
+### Users
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/users` | List all users |
+| `POST` | `/api/users` | Add a user (Admin only) |
+
+### Queries
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/summary` | Dashboard stats (total, pending, completed, overdue, urgent) |
+| `GET` | `/api/overdue` | All overdue incomplete todos |
+| `GET` | `/api/urgent` | All urgent incomplete todos |
+
+### Response Format
+
+All mutation endpoints return:
+
+```json
+// Success
+{ "success": true, "todo": { ... } }
+
+// Error
+{ "success": false, "error": "Permission denied" }
+```
+
 ## Configuration
 
 | Environment Variable | Description | Default |
