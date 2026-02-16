@@ -92,6 +92,12 @@ export class TodoStore {
     }
   }
 
+  // ==================== Reload from disk ====================
+
+  reload(): void {
+    this.data = this.loadData();
+  }
+
   // ==================== Utility ====================
 
   generateId(): string {

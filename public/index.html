@@ -115,7 +115,7 @@
         <!-- Stat Cards -->
         <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 mb-8">
           <!-- Total -->
-          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden">
+          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden cursor-pointer" onclick="showFilteredTodos('all')">
             <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-gray-400 to-gray-600"></div>
             <div class="flex items-start justify-between mb-3">
               <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
@@ -129,7 +129,7 @@
           </div>
 
           <!-- Pending -->
-          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden">
+          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden cursor-pointer" onclick="showFilteredTodos('pending')">
             <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-blue-400 to-blue-600"></div>
             <div class="flex items-start justify-between mb-3">
               <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-blue-50 to-blue-100 flex items-center justify-center">
@@ -143,7 +143,7 @@
           </div>
 
           <!-- Completed -->
-          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden">
+          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden cursor-pointer" onclick="showFilteredTodos('completed')">
             <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-green-400 to-green-600"></div>
             <div class="flex items-start justify-between mb-3">
               <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-green-50 to-green-100 flex items-center justify-center">
@@ -157,7 +157,7 @@
           </div>
 
           <!-- Overdue -->
-          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden">
+          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden cursor-pointer" onclick="showFilteredTodos('overdue')">
             <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-orange-400 to-orange-600"></div>
             <div class="flex items-start justify-between mb-3">
               <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-orange-50 to-orange-100 flex items-center justify-center">
@@ -171,7 +171,7 @@
           </div>
 
           <!-- Urgent -->
-          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden">
+          <div class="stat-card bg-white rounded-xl p-5 border border-gray-200 shadow-sm relative overflow-hidden cursor-pointer" onclick="showFilteredTodos('urgent')">
             <div class="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-red-400 to-red-600"></div>
             <div class="flex items-start justify-between mb-3">
               <div class="w-12 h-12 rounded-lg bg-gradient-to-br from-red-50 to-red-100 flex items-center justify-center">

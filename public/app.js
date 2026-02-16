@@ -50,6 +50,16 @@ async function init() {
   await loadData();
   populateFilters();
   renderAll();
+
+  // Auto-refresh every 5 seconds
+  setInterval(async () => {
+    try {
+      await loadData();
+      if (state.currentPage === 'dashboard') renderDashboard();
+      else if (state.currentPage === 'todos') renderTodos();
+      else if (state.currentPage === 'projects') renderProjects();
+    } catch (e) { /* silent retry next cycle */ }
+  }, 5000);
 }
 
 async function loadData() {
@@ -153,6 +163,44 @@ function showProjectTodos(projectId) {
   document.getElementById('filter-status').value = '';
   document.getElementById('filter-search').value = '';
   showPage('todos');
+}
+
+function showFilteredTodos(filter) {
+  document.getElementById('filter-project').value = '';
+  document.getElementById('filter-assignee').value = '';
+  document.getElementById('filter-search').value = '';
+
+  if (filter === 'pending') {
+    document.getElementById('filter-status').value = 'pending';
+    document.getElementById('filter-priority').value = '';
+  } else if (filter === 'completed') {
+    document.getElementById('filter-status').value = 'completed';
+    document.getElementById('filter-priority').value = '';
+  } else if (filter === 'urgent') {
+    document.getElementById('filter-status').value = 'pending';
+    document.getElementById('filter-priority').value = 'urgent';
+  } else if (filter === 'overdue') {
+    document.getElementById('filter-status').value = 'pending';
+    document.getElementById('filter-priority').value = '';
+  } else {
+    document.getElementById('filter-status').value = '';
+    document.getElementById('filter-priority').value = '';
+  }
+
+  showPage('todos');
+
+  // For overdue, apply extra client-side filter after render
+  if (filter === 'overdue') {
+    setTimeout(() => {
+      const today = new Date().toISOString().split('T')[0];
+      document.querySelectorAll('.todo-row').forEach(row => {
+        const dateCell = row.querySelector('td:nth-last-child(2) span');
+        if (dateCell && !dateCell.classList.contains('overdue-text')) {
+          row.style.display = 'none';
+        }
+      });
+    }, 50);
+  }
 }
 
 // ==================== Render All ====================

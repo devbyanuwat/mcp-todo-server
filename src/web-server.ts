@@ -12,6 +12,12 @@ const corsOrigin = process.env.TODO_CORS_ORIGIN;
 app.use(cors(corsOrigin ? { origin: corsOrigin.split(',') } : undefined));
 app.use(express.json());
 
+// Reload data from disk on every API request (sync with MCP server)
+app.use('/api', (_req, _res, next) => {
+  store.reload();
+  next();
+});
+
 // Serve static files from public/
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
