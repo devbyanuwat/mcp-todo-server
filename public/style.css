@@ -1,0 +1,708 @@
+/* ================================================
+   Todo Manager - Modern UI Styles
+   ================================================ */
+
+/* CSS Custom Properties for Theming */
+:root {
+  /* Brand Colors */
+  --brand-50: #f0f4ff;
+  --brand-100: #dbe4ff;
+  --brand-500: #5c7cfa;
+  --brand-600: #4c6ef5;
+  --brand-700: #4263eb;
+
+  /* Priority Colors */
+  --urgent-bg: #fef2f2;
+  --urgent-text: #dc2626;
+  --urgent-border: #fecaca;
+
+  --high-bg: #fff7ed;
+  --high-text: #ea580c;
+  --high-border: #fed7aa;
+
+  --medium-bg: #eff6ff;
+  --medium-text: #2563eb;
+  --medium-border: #bfdbfe;
+
+  --low-bg: #f0fdf4;
+  --low-text: #16a34a;
+  --low-border: #bbf7d0;
+
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+
+  /* Transitions */
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ================================================
+   Base Styles
+   ================================================ */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ================================================
+   Custom Scrollbar
+   ================================================ */
+
+.custom-scrollbar::-webkit-scrollbar,
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track,
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 4px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb,
+::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+  transition: background var(--transition-fast);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover,
+::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* ================================================
+   Navigation Buttons
+   ================================================ */
+
+.nav-btn {
+  color: #6b7280;
+  position: relative;
+  text-align: left;
+  transition: all var(--transition-base);
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-btn:hover {
+  color: #374151;
+  background: #f3f4f6;
+}
+
+.nav-active {
+  color: var(--brand-700) !important;
+  background: var(--brand-50) !important;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav-active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: linear-gradient(to bottom, var(--brand-500), var(--brand-700));
+  border-radius: 0 4px 4px 0;
+}
+
+/* ================================================
+   Stat Cards
+   ================================================ */
+
+.stat-card {
+  transition: transform var(--transition-base), box-shadow var(--transition-base);
+  cursor: default;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+}
+
+/* ================================================
+   Buttons
+   ================================================ */
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--brand-600), var(--brand-700));
+  color: white;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, var(--brand-700), var(--brand-700));
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary {
+  background: white;
+  color: #6b7280;
+  padding: 0.625rem 1.25rem;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  border: 1px solid #e5e7eb;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  color: #374151;
+  background: #f9fafb;
+  border-color: #d1d5db;
+}
+
+/* ================================================
+   Action Buttons (Table)
+   ================================================ */
+
+.action-btn {
+  padding: 0.375rem 0.75rem;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition: all var(--transition-fast);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+.action-edit {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.action-edit:hover {
+  background: #dbeafe;
+}
+
+.action-delete {
+  background: #fef2f2;
+  color: #dc2626;
+}
+
+.action-delete:hover {
+  background: #fee2e2;
+}
+
+/* ================================================
+   Priority Badges
+   ================================================ */
+
+.priority-urgent {
+  background: linear-gradient(135deg, var(--urgent-bg), #fef2f2);
+  color: var(--urgent-text);
+  border: 1px solid var(--urgent-border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.priority-high {
+  background: linear-gradient(135deg, var(--high-bg), #fff7ed);
+  color: var(--high-text);
+  border: 1px solid var(--high-border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.priority-medium {
+  background: linear-gradient(135deg, var(--medium-bg), #eff6ff);
+  color: var(--medium-text);
+  border: 1px solid var(--medium-border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.priority-low {
+  background: linear-gradient(135deg, var(--low-bg), #f0fdf4);
+  color: var(--low-text);
+  border: 1px solid var(--low-border);
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+/* ================================================
+   Table Styles
+   ================================================ */
+
+.todo-row {
+  transition: background-color var(--transition-fast);
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.todo-row:hover {
+  background-color: #f8fafc;
+}
+
+.todo-row:last-child {
+  border-bottom: none;
+}
+
+.todo-row.completed {
+  opacity: 0.6;
+}
+
+.todo-row.completed:hover {
+  opacity: 0.75;
+}
+
+.todo-checkbox {
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--brand-600);
+  border-radius: 0.375rem;
+  transition: all var(--transition-fast);
+}
+
+.todo-checkbox:hover {
+  transform: scale(1.1);
+}
+
+/* ================================================
+   Overdue Highlight
+   ================================================ */
+
+.overdue-text {
+  color: #dc2626;
+  font-weight: 600;
+}
+
+/* ================================================
+   Project Cards
+   ================================================ */
+
+.project-card {
+  transition: all var(--transition-base);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-xl);
+}
+
+/* ================================================
+   Forms
+   ================================================ */
+
+.form-group {
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #374151;
+  margin-bottom: 0.5rem;
+}
+
+.form-input,
+.form-select {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.625rem 0.875rem;
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+  background: white;
+  color: #1f2937;
+}
+
+.form-input:focus,
+.form-select:focus {
+  outline: none;
+  border-color: var(--brand-500);
+  ring: 2px;
+  ring-color: var(--brand-500);
+  box-shadow: 0 0 0 3px rgba(76, 110, 245, 0.1);
+}
+
+.form-input:hover,
+.form-select:hover {
+  border-color: #9ca3af;
+}
+
+.form-input::placeholder {
+  color: #9ca3af;
+}
+
+.filter-input {
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+  transition: all var(--transition-fast);
+  background: white;
+}
+
+.filter-input:focus {
+  outline: none;
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 3px rgba(76, 110, 245, 0.1);
+}
+
+.filter-select {
+  min-width: 140px;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.875rem;
+  font-size: 0.875rem;
+  background: white;
+  transition: all var(--transition-fast);
+  cursor: pointer;
+}
+
+.filter-select:focus {
+  outline: none;
+  border-color: var(--brand-500);
+  box-shadow: 0 0 0 3px rgba(76, 110, 245, 0.1);
+}
+
+.filter-select:hover {
+  border-color: #9ca3af;
+}
+
+/* ================================================
+   Star Rating
+   ================================================ */
+
+.star-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  padding: 0;
+  line-height: 1;
+  font-size: 1.75rem;
+  color: #d1d5db;
+  transition: all var(--transition-fast);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.star-btn:hover {
+  color: #fbbf24;
+  transform: scale(1.15);
+}
+
+.star-btn.star-active {
+  color: #fbbf24;
+}
+
+.star-btn:focus {
+  outline: none;
+}
+
+/* ================================================
+   Modal
+   ================================================ */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  animation: fadeIn var(--transition-base) ease-out;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 36rem;
+  max-height: 90vh;
+  overflow-y: auto;
+  animation: slideUpScale var(--transition-slow) cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.modal-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.modal-close:hover {
+  background: #f3f4f6;
+  color: #1f2937;
+}
+
+.modal-body {
+  padding: 1.5rem;
+}
+
+/* ================================================
+   Toast Notifications
+   ================================================ */
+
+.toast {
+  position: fixed;
+  bottom: 1.5rem;
+  right: 1.5rem;
+  z-index: 99999;
+  animation: slideUp var(--transition-base) ease-out;
+}
+
+.toast-content {
+  background: linear-gradient(135deg, #1f2937, #111827);
+  color: white;
+  padding: 0.875rem 1.25rem;
+  border-radius: 0.75rem;
+  box-shadow: var(--shadow-xl);
+  font-size: 0.875rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  min-width: 250px;
+}
+
+.toast-icon {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex-shrink: 0;
+  color: #10b981;
+}
+
+/* Toast Variants */
+.toast-success .toast-content {
+  background: linear-gradient(135deg, #10b981, #059669);
+}
+
+.toast-error .toast-content {
+  background: linear-gradient(135deg, #ef4444, #dc2626);
+}
+
+.toast-warning .toast-content {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+}
+
+.toast-info .toast-content {
+  background: linear-gradient(135deg, #3b82f6, #2563eb);
+}
+
+/* ================================================
+   Color Dot
+   ================================================ */
+
+.color-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+  border: 2px solid rgba(255, 255, 255, 0.8);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* ================================================
+   Animations
+   ================================================ */
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(1rem);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideUpScale {
+  from {
+    transform: translateY(2rem) scale(0.95);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+/* ================================================
+   Focus Styles (Accessibility)
+   ================================================ */
+
+*:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--brand-500);
+  outline-offset: 2px;
+}
+
+/* ================================================
+   Responsive Utilities
+   ================================================ */
+
+@media (max-width: 1023px) {
+  .modal-content {
+    margin: 1rem;
+  }
+
+  .stat-card:hover {
+    transform: none;
+  }
+
+  .project-card:hover {
+    transform: translateY(-2px);
+  }
+}
+
+@media (max-width: 639px) {
+  .toast {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+  }
+
+  .toast-content {
+    width: 100%;
+  }
+}
+
+/* ================================================
+   Print Styles
+   ================================================ */
+
+@media print {
+  .nav-btn,
+  .btn-primary,
+  .btn-secondary,
+  .action-btn,
+  .modal-overlay,
+  .toast,
+  #mobile-menu-toggle,
+  #sidebar {
+    display: none !important;
+  }
+
+  main {
+    margin-left: 0 !important;
+  }
+
+  .stat-card,
+  .project-card {
+    box-shadow: none !important;
+    border: 1px solid #e5e7eb !important;
+  }
+}
