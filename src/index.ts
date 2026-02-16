@@ -42,6 +42,7 @@ Available default users:
     }
   },
   async ({ user_id }) => {
+    store.reload();
     const user = store.login(user_id);
     if (user) {
       return {
@@ -68,6 +69,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     store.logout();
     return {
       content: [{ type: "text", text: JSON.stringify({ success: true, message: "Logged out" }) }]
@@ -89,6 +91,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const user = store.getCurrentUser();
     return {
       content: [{ type: "text", text: JSON.stringify(user || { error: "Not logged in" }, null, 2) }]
@@ -112,6 +115,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const users = store.getUsers();
     return {
       content: [{ type: "text", text: JSON.stringify({ users, count: users.length }, null, 2) }]
@@ -144,6 +148,7 @@ Args:
     }
   },
   async ({ name, email, role, avatar }) => {
+    store.reload();
     const user = store.addUser(name, email, role, avatar);
     if (user) {
       return {
@@ -172,6 +177,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const projects = store.getProjects();
     return {
       content: [{ type: "text", text: JSON.stringify({ projects, count: projects.length }, null, 2) }]
@@ -200,6 +206,7 @@ Args:
     }
   },
   async ({ name, color }) => {
+    store.reload();
     const project = store.addProject(name, color);
     if (project) {
       return {
@@ -228,6 +235,7 @@ server.registerTool(
     }
   },
   async ({ project_id }) => {
+    store.reload();
     const success = store.deleteProject(project_id);
     return {
       content: [{ type: "text", text: JSON.stringify({ success, message: success ? "Project deleted" : "Permission denied or project not found" }) }]
@@ -251,6 +259,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const todos = store.getTodos();
     return {
       content: [{ type: "text", text: JSON.stringify({ todos, count: todos.length }, null, 2) }]
@@ -296,6 +305,7 @@ Role permissions:
     }
   },
   async (params) => {
+    store.reload();
     const todo = store.addTodo({
       title: params.title,
       projectId: params.project_id,
@@ -341,6 +351,7 @@ server.registerTool(
     }
   },
   async ({ todo_id, ...updates }) => {
+    store.reload();
     const todo = store.updateTodo(todo_id, {
       title: updates.title,
       projectId: updates.project_id,
@@ -378,6 +389,7 @@ server.registerTool(
     }
   },
   async ({ todo_id }) => {
+    store.reload();
     const todo = store.toggleTodo(todo_id);
     if (todo) {
       return {
@@ -406,6 +418,7 @@ server.registerTool(
     }
   },
   async ({ todo_id }) => {
+    store.reload();
     const todo = store.deleteTodo(todo_id);
     if (todo) {
       return {
@@ -435,6 +448,7 @@ server.registerTool(
     }
   },
   async ({ todo_id, user_id }) => {
+    store.reload();
     const todo = store.assignTodo(todo_id, user_id);
     if (todo) {
       const user = store.getUser(user_id);
@@ -466,6 +480,7 @@ server.registerTool(
     }
   },
   async ({ project_id }) => {
+    store.reload();
     const todos = store.getTodosByProject(project_id);
     const project = store.getProject(project_id);
     return {
@@ -490,6 +505,7 @@ server.registerTool(
     }
   },
   async ({ user_id }) => {
+    store.reload();
     const todos = store.getTodosByAssignee(user_id);
     const user = store.getUser(user_id);
     return {
@@ -514,6 +530,7 @@ server.registerTool(
     }
   },
   async ({ date }) => {
+    store.reload();
     const todos = store.getTodosByDate(date);
     return {
       content: [{ type: "text", text: JSON.stringify({ date, todos, count: todos.length }, null, 2) }]
@@ -535,6 +552,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const todos = store.getOverdueTodos();
     return {
       content: [{ type: "text", text: JSON.stringify({ overdue: true, todos, count: todos.length }, null, 2) }]
@@ -556,6 +574,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const todos = store.getUrgentTodos();
     return {
       content: [{ type: "text", text: JSON.stringify({ priority: "urgent", todos, count: todos.length }, null, 2) }]
@@ -577,6 +596,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const todos = store.getPendingTodos();
     return {
       content: [{ type: "text", text: JSON.stringify({ completed: false, todos, count: todos.length }, null, 2) }]
@@ -598,6 +618,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const todos = store.getCompletedTodos();
     return {
       content: [{ type: "text", text: JSON.stringify({ completed: true, todos, count: todos.length }, null, 2) }]
@@ -621,6 +642,7 @@ server.registerTool(
     }
   },
   async () => {
+    store.reload();
     const summary = store.getSummary();
     return {
       content: [{ type: "text", text: JSON.stringify(summary, null, 2) }]
